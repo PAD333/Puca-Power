@@ -18,7 +18,7 @@ var pucaPower = {
         version: 'v1.4.3',
         updateDate: '2016-03-07',
 
-        formUrl: 'https://llamasoft.github.io/Puca-Power/controls.html',
+        formUrl: 'https://pad333.github.io/Puca-Power/controls.html',
 
         // Default values for internal settings
         // If you change this structure, you need to update the following:
