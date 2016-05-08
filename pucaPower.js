@@ -971,11 +971,11 @@ var pucaPower = {
                     matchedFilter = true;
                 }
 
-                // Filter members by membersMinQty
-            } else if (cardQty < this.filter.membersMinQty ) {
-                this.debug(4, 'Filtering member: ' + memberName + ' (' + cardQty + ')');
-                matchedFilter = true;
-            }
+                    // Filter members by membersMinQty
+                else if (cardQty < this.filter.membersMinQty ) {
+                    this.debug(4, 'Filtering member: ' + memberName + ' (' + cardQty + ')');
+                    matchedFilter = true;
+                }
 
 
             // If we found at least one filter criteria, remove the trade offer
