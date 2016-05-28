@@ -690,7 +690,7 @@ var pucaPower = {
 
                 // Note: the last alert a member qualifies for takes priority
                 // Does this qualify as a bundle alert?
-                if ( this.alert.onBundle && tradeValue >= this.alert.bundleThreshold && this.alert.bundleMinQty >= cardQty ) {
+                if ( this.alert.onBundle && tradeValue >= this.alert.bundleThreshold && cardQty >= this.alert.bundleMinQty  ) {
                     this.memberData[i].hasAlert = true;
                     this.memberData[i].hasBundleAlert = true;
 
