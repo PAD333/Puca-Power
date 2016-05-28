@@ -6,7 +6,6 @@
     So it turns out that I'm not great at designing user interfaces.
     I had to relearn HTML5 and Bootstrap 2.3.2 to hack this together.
     If you have any experience building UIs, please feel free to contact me on GitHub.
-
     Setting IDs are based on the variable they will be stored in.
     Examples:
         alertOnBundle      -> alert.onBundle
@@ -41,6 +40,17 @@
             <div class="input-append">
                 <input id="alertBundleThreshold" type="number" class="input-mini" min="1" step="1">
                 <span class="add-on">points</span>
+            </div>
+        </div>
+
+        <div class="form-inline">
+            <label class="checkbox">
+                <input id="alertOnMinQty" type="checkbox">
+                Alert on trade bundles with minimum
+            </label>
+            <div class="input-append">
+                <input id="alertBundleMinQty" type="number" class="input-mini" min="1" step="1">
+                <span class="add-on">cards</span>
             </div>
         </div>
 
@@ -120,18 +130,6 @@
             <div class="input-append">
                 <input id="filterMembersMinPoints" type="number" class="input-mini" min="1" step="1">
                 <span class="add-on">points</span>
-            </div>
-        </div>
-
-        <h3><!-- spacing hack --></h3>
-        <div class="form-inline">
-            <label class="checkbox">
-                <input type="checkbox" id="filterMembersByQty">
-                Filter bundles with less than
-            </label>
-            <div class="input-append">
-                <input id="filterMembersMinQty" type="number" class="input-mini" min="1" step="1">
-                <span class="add-on">cards</span>
             </div>
         </div>
     </div>

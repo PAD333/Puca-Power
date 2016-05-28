@@ -38,6 +38,7 @@ var pucaPower = {
             alert: {
                 onBundle: true,
                 bundleThreshold: 500,
+                bundleMinQty: 1,
                 colorizeBundleRows: true,
                 colorizeBundleColor: '#CCFF99',
 
@@ -62,7 +63,6 @@ var pucaPower = {
                 membersByPoints: false,
                 membersMinPoints: 400,
                 membersByQty: false,
-                membersMinQty: 2
             }
         },
 
@@ -241,6 +241,13 @@ var pucaPower = {
                         this.alert.bundleThreshold,
                         this.defaults.alert.bundleThreshold
                     ),
+                onMinQty: $('input#alertOnMinQty').prop('checked'),
+                bundleMinQty:
+                    safeParse(
+                        $('input#alertBundleMinQty').val(),
+                        this.alert.bundleMinQty,
+                        this.defaults.alert.bundleMinQty
+                    ),
                 colorizeBundleRows: $('input#alertColorizeBundleRows').prop('checked'),
                 colorizeBundleColor: $('input#alertColorizeBundleColor').val(),
 
@@ -273,13 +280,6 @@ var pucaPower = {
                         $('input#filterMembersMinPoints').val(),
                         this.filter.membersMinPoints,
                         this.defaults.filter.membersMinPoints
-                    ),
-                membersByQty: $('input#filterMembersByQty').prop('checked'),
-                membersMinQty:
-                    safeParse(
-                        $('input#filtermembersMinQty').val(),
-                        this.filter.membersMinQty,
-                        this.defaults.filter.membersMinQty
                     )
             };
 
@@ -297,7 +297,9 @@ var pucaPower = {
 
             // Trade bundle settings
             $('input#alertOnBundle').prop('checked', this.alert.onBundle);
+            $('input#alertOnMinQty').prop('checked', this.alert.onBundle);
             $('input#alertBundleThreshold').val(this.alert.bundleThreshold);
+            $('input#alertBundleMinQty').val(this.alert.bundleMinQty);
             $('input#alertColorizeBundleRows').prop('checked', this.alert.colorizeBundleRows);
             $('input#alertColorizeBundleColor').val(this.alert.colorizeBundleColor);
 
@@ -317,7 +319,6 @@ var pucaPower = {
             $('input#filterCardsByValue').prop('checked', this.filter.cardsByValue);
             $('input#filterCardsMinValue').val(this.filter.cardsMinValue);
             $('input#filterMembersByQty').prop('checked', this.filter.membersByQty);
-            $('input#filtermembersMinQty').val(this.filter.membersMinQty);
             $('input#filterMembersByPoints').prop('checked', this.filter.membersByPoints);
             $('input#filterMembersMinPoints').val(this.filter.membersMinPoints);
 
@@ -336,6 +337,10 @@ var pucaPower = {
             $('input#alertBundleThreshold').prop('disabled', !isChecked);
             $('input#alertColorizeBundleRows').prop('disabled', !isChecked);
             $('input#alertColorizeBundleColor').prop('disabled', !isChecked);
+
+            // Alert on bundle minQty
+            isChecked = $('input#alertOnMinQty').prop('checked');
+            $('input#alertBundleMinQty').prop('disabled', !isChecked);
 
             // Colorize bundle rows checkbox is connected to the color picker
             isChecked =  $('input#alertColorizeBundleRows').prop('checked');
@@ -685,7 +690,7 @@ var pucaPower = {
 
                 // Note: the last alert a member qualifies for takes priority
                 // Does this qualify as a bundle alert?
-                if ( this.alert.onBundle && tradeValue >= this.alert.bundleThreshold && this.alert.cardQty >= cardQty ) {
+                if ( this.alert.onBundle && tradeValue >= this.alert.bundleThreshold && this.alert.bundleMinQty >= cardQty ) {
                     this.memberData[i].hasAlert = true;
                     this.memberData[i].hasBundleAlert = true;
 
@@ -970,13 +975,6 @@ var pucaPower = {
                     matchedFilter = true;
                 }
 
-                    // Filter members by membersMinQty
-                else if (cardQty < this.filter.membersMinQty ) {
-                    this.debug(4, 'Filtering member: ' + memberName + ' (' + cardQty + ')');
-                    matchedFilter = true;
-                }
-
-
             // If we found at least one filter criteria, remove the trade offer
             if ( matchedFilter ) {
                 filterQty++;
@@ -1249,6 +1247,7 @@ setupListeners: function () {
     $('button#reset').click(this.loadDefaultSettings.bind(this));
 
     $('input#alertOnBundle').click(this.updatePageState.bind(this));
+    $('input#alertOnMinQty').click(this.updatePageState.bind(this));
     $('input#alertColorizeBundleRows').click(this.updatePageState.bind(this));
 
     $('input#alertOnOutgoing').click(this.updatePageState.bind(this));
