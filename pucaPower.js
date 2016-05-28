@@ -652,7 +652,6 @@ var pucaPower = {
                     }
                 }
 
-                if ( cardQty <=
                 curAlert = {
                     memberID: memberID,
                     style: (totalCardPts > memberPts ? 'text-warning' : ''),
